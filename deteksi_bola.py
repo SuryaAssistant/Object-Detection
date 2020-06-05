@@ -206,7 +206,7 @@ while True:
                     dirY = "Bawah" if np.sign(dY) == 1 else "Atas"
                 
                 #jika bola bergerak ke arah atas
-                if (dY) < 20:
+                if (dY) < 0:
                     #jika bola berada di luar zona deteksi sensor, buzzer mati
                     if (y < height_low):
                         GPIO.output(redLed, GPIO.LOW)
@@ -232,7 +232,7 @@ while True:
                                     GPIO.output(redLed, GPIO.LOW)
                                     ledOn = False
                 #jika bola turun
-                if (dY) > 20:
+                if (dY) >= 0:
                     GPIO.output(redLed, GPIO.LOW)
                     lenOn = False
          
@@ -258,17 +258,22 @@ while True:
         0.35, (0, 0, 255), 1)
     
     # hapus tanda "#" pada code dibawah ini untuk menampilkan gambar ke layar
-    cv2.imshow("Frame", frame)
+    #cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
     counter += 1
-    
+
+    if (GPIO.input(5) == 0):
+        key = ord("q")
+        print("Program dihentikan")
+        
     # if the 'q' key is pressed, stop the loop
+        if key == ord("q"):
+            break
+    #mematikan program melalui button GPIO5
+    
     if key == ord("q"):
         break
-    #mematikan program melalui button GPIO5
-    elif (GPIO.input(5) == 0):
-        print("Program dihentikan")
-        break
+
 
 # if not using a video file, stop the camera video stream
 if not args.get("video", False):
