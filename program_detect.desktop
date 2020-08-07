@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Program_detect
+Exec=/usr/bin/python3 /home/pi/deteksi_bola.py
+Terminal=true
